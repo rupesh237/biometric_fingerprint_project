@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>Attendance</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+        <link rel="stylesheet" href="{% static 'fingerprint/style.css' %}"
+    </head>
+    <body>
+        <main class="table">
+            <section class="table_header">
+                <h2>Attendance Status Of Staffs</h2>
+                <div class="input-group">
+                    <input type="search" placeholder="Search Data...">
+                    {% comment %} <img src="static/fingerprint/images/search.png" alt="img"> {% endcomment %}
+                </div>
+            </section>
+            <section class="table_body">
+                <table id="myTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>staffCode</th>
+                            <th>attendanceState</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for attendance in attendance_data %}
+                            <tr>
+                                <td>{{ attendance.employeeName }}</td>
+                                <td>{{ attendance.userId }}</td>
+                                <td>{{ attendance.attendanceState }}</td>
+                                <td>{{ attendance.attendanceDate }}</td>
+                                <td>{{ attendance.attendanceTime }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </main>
+        <script src="{% static 'fingerprint/functions.js' %}"></script>
+        
+    </body>
+</html>
