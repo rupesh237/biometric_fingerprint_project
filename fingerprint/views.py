@@ -1,9 +1,10 @@
 from django.db import models
 import json
+from django.urls import reverse
 from rest_framework import status
 from requests import Response
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from rest_framework.renderers import JSONRenderer
 # this below line exempt csrf token for create attendance
 from django.views.decorators.csrf import csrf_exempt
@@ -24,34 +25,6 @@ def attendance_view(request):
 ).values('employeeName', 'userId', 'attendanceState', 'attendanceDate', 'attendanceTime')
     return render(request, 'fingerprint/attendance.html', {'attendance_data': attendance_data})
 
-# for testing we exempt_csrf token
-
-
-# @csrf_exempt
-# def createAttendance(request):
-#     if request.method == 'POST':
-#         json_data = request.body
-#         stream = io.BytesIO(json_data)
-#         pythondata = JSONParser().parse(stream)
-
-#         if isinstance(pythondata, list):
-#             # Handle list of dictionaries
-#             if pythondata[0].get('biometricDbId') is None:
-#                 return Response({'error': 'biometricDbId is required'}, status=status.HTTP_400_BAD_REQUEST)
-#             serializer = AttendanceSerializer(data=pythondata, many=True)
-#         else:
-#             # Handle single dictionary
-#             if pythondata.get('biometricDbId') is None:
-#                 return Response({'error': 'biometricDbId is required'}, status=status.HTTP_400_BAD_REQUEST)
-#             serializer = AttendanceSerializer(data=pythondata)
-
-#         if serializer.is_valid():
-#             serializer.save()
-#             res = {'msg': 'Data successfully Inserted'}
-#             json_data = JSONRenderer().render(res)
-#             return HttpResponse(json_data, content_type='application/json')
-#         json_data = JSONRenderer().render(serializer.errors)
-#         return HttpResponse(json_data, content_type='application/json')
 @csrf_exempt
 def createAttendance(request):
     json_data = request.body
@@ -80,4 +53,10 @@ def createAttendance(request):
         return HttpResponse(json_data, content_type='application/json')
     json_data = JSONRenderer().render(serializer.errors)
     return HttpResponse(json_data, content_type='application/json')
+
+
+# below view flush Attendance table whenever get executed
+def flush_attendance(request):
+    Attendance.objects.all().delete()
+    return redirect(reverse('view_attendance'))
     

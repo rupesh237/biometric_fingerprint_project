@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+.button {
+    width: 15%;
+    height: 75%;
+    background-color: red;
+    padding: 0 .8rem;
+    border-radius: 2rem;
+  }
+
  th{
 color: blueviolet;
 }

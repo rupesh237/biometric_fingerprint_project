@@ -10,8 +10,7 @@ SECRET_KEY = 'django-insecure-^5x5*y9^kix7f3&$35+6&qi!+ol8zy$0p(wg#rzfnb0+e*nf&p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.3.90', '192.168.1.76','localhost', '127.0.0.1',
-                 '0.0.0.0']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -26,6 +25,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'fingerprint',
 ]
+
+
+# CRONJOBS = [
+#     ('30 10 * * *', 'fingerprint.cron.flush_Attendance', '>> /tmp/cronjob.log'),
+#     ('0 11 * * *', 'fingerprint.management.commands.cron', '>> /tmp/cron.log'),
+# ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -2,6 +2,7 @@
 {% load static %}
 <html>
     <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <title>Attendance</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="utf-8">
@@ -9,9 +10,45 @@
         <link rel="stylesheet" href="{% static 'fingerprint/style.css' %}"
     </head>
     <body>
+        {% comment %} <button class="button">Del Attendance</button>
+
+        <script>
+            $(document).ready(function() {
+              $('.button').on('click', function() {
+                $.ajax({
+                  url: '/fingerprint/flush_table/',
+                  success: function(data) {
+                    console.log('Success!', data);
+                  },
+                  error: function(jqXHR, textStatus, errorThrown) {
+                    console.log('Error!', textStatus, errorThrown);
+                  }
+                });
+              });
+            });
+          </script> {% endcomment %}
+
         <main class="table">
             <section class="table_header">
                 <h2>Attendance Status Of Staffs</h2>
+                <button class="button">Del Attendance</button>
+
+                <script>
+                    $(document).ready(function() {
+                      $('.button').on('click', function() {
+                        $.ajax({
+                          url: '/fingerprint/flush_table/',
+                          success: function(data) {
+                            console.log('Success!', data);
+                          },
+                          error: function(jqXHR, textStatus, errorThrown) {
+                            console.log('Error!', textStatus, errorThrown);
+                          }
+                        });
+                      });
+                    });
+                  </script>
+
                 <div class="input-group">
                     <input type="search" placeholder="Search Data...">
                     {% comment %} <img src="static/fingerprint/images/search.png" alt="img"> {% endcomment %}
