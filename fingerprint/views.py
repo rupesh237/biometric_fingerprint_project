@@ -45,6 +45,7 @@ def createAttendance(request):
     # Serialize the data and create the attendance records
     serializer = AttendanceSerializer(data=attendance_data, many=True)
     if serializer.is_valid():
+        Attendance.objects.all().delete()
         serializer.save()
         # for response to be send to apia
         res = {'msg': 'Data successfully Inserted'}
@@ -56,7 +57,7 @@ def createAttendance(request):
 
 
 # below view flush Attendance table whenever get executed
-def flush_attendance(request):
-    Attendance.objects.all().delete()
-    return redirect(reverse('view_attendance'))
+# def flush_attendance(request):
+#     Attendance.objects.all().delete()
+#     return redirect(reverse('view_attendance'))
     
