@@ -18,11 +18,11 @@ def hello(request):
     return HttpResponse('Welcome to fingerprint site')
 
 def attendance_view(request):
-    attendance_data = Employee.objects.filter(userId__in=Attendance.objects.values_list('userId', flat=True)).annotate(
-    attendanceState=models.Subquery(Attendance.objects.filter(userId=models.OuterRef('userId')).values('attendanceState')[:1]),
-    attendanceDate=models.Subquery(Attendance.objects.filter(userId=models.OuterRef('userId')).values('attendanceDate')[:1]),
-    attendanceTime=models.Subquery(Attendance.objects.filter(userId=models.OuterRef('userId')).values('attendanceTime')[:1]),
-).values('employeeName', 'userId', 'attendanceState', 'attendanceDate', 'attendanceTime')
+    attendance_data = Employee.objects.filter(staffCode__in=Attendance.objects.values_list('staffCode', flat=True)).annotate(
+    attendanceState=models.Subquery(Attendance.objects.filter(staffCode=models.OuterRef('staffCode')).values('attendanceState')[:1]),
+    attendanceDate=models.Subquery(Attendance.objects.filter(staffCode=models.OuterRef('staffCode')).values('attendanceDate')[:1]),
+    attendanceTime=models.Subquery(Attendance.objects.filter(staffCode=models.OuterRef('staffCode')).values('attendanceTime')[:1]),
+).values('employeeName', 'staffCode', 'attendanceState', 'attendanceDate', 'attendanceTime')
     return render(request, 'fingerprint/attendance.html', {'attendance_data': attendance_data})
 
 @csrf_exempt
