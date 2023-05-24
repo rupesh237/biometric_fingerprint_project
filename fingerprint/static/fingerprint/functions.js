@@ -9,7 +9,7 @@ const search = document.querySelector('.input-group input'),
     function searchTable(){
       table_rows.forEach((row, i)=>{
         let table_data= row.textContent,
-            search_data = search.value.toLowerCase;
+            search_data = search.value;
 
         row.classList.toggle('hide',table_data.indexOf(search_data) < 0);
         row.style.setProperty('--delay' , i/5 + 's');
